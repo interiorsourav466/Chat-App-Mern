@@ -1,73 +1,138 @@
 import { useState } from "react";
 import { useAuthStore } from "../store/useAuthStore";
 import { Link } from "react-router-dom";
-export default function Login() {
+
+export default function Login(){
+
   const { login, isLoggingIn } = useAuthStore();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+
+  const [formData,setFormData] = useState({
+
+    email:"",
+    password:""
+
   });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e)=>{
+
+    setFormData({
+
+      ...formData,
+      [e.target.name]:e.target.value
+
+    });
+
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async(e)=>{
+
     e.preventDefault();
+
     await login(formData);
+
   };
-  return (
-    <div className="flex items-center justify-center mt-12">
-      <div className="flex flex-col justify-center w-full max-w-80 rounded-xl px-6 py-8 border border-slate-700 bg-slate-900 text-white text-sm">
-        <h2 className="text-2xl font-semibold">Sign In</h2>
-        <p className="text-slate-300 mt-1">Signin to your account</p>
-        <form onSubmit={handleSubmit} className="mt-8">
-          <label
-            htmlFor="email"
-            className="block mb-1 font-medium text-slate-300"
-          >
-            Email address
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email"
-            className="w-full p-2 mb-3 bg-slate-900 border border-slate-700 rounded-md focus:outline-none focus:ring-1 transition focus:ring-indigo-500 focus:border-indigo-500"
-          />
 
-          <label
-            htmlFor="password"
-            className="block mb-1 font-medium text-slate-300"
-          >
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Password"
-            className="w-full p-2 mb-2 bg-slate-900 border border-slate-700 rounded-md focus:outline-none focus:ring-1 transition focus:ring-indigo-500 focus:border-indigo-500"
-          />
+  return(
 
-          <button
-            type="submit"
-            className="w-full mt-4 px-4 py-2.5 font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          >
-            {isLoggingIn ? "Loading..." : "Login"}
-          </button>
-        </form>
-        <p>
-          Don't Have an account ?{" "}
-          <Link to="/signup" className="text-blue-500">
-            Sign up
-          </Link>{" "}
-        </p>
-      </div>
-    </div>
+   <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-200 via-purple-100 to-gray-200">
+
+  <div className="bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-10 w-[380px]">
+
+    <h2 className="text-3xl font-bold text-center text-indigo-600">
+      Welcome Back
+    </h2>
+
+    <p className="text-center text-gray-500 mt-2">
+      Login to continue chatting
+    </p>
+
+    <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={formData.email}
+        onChange={handleChange}
+
+        className="
+        w-full
+        px-4 py-3
+        rounded-xl
+        bg-gray-100
+        border
+        border-gray-200
+        focus:outline-none
+        focus:ring-2
+        focus:ring-indigo-400
+        transition
+        placeholder-gray-600
+        "
+      />
+
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={formData.password}
+        onChange={handleChange}
+
+        className="
+        w-full
+        px-4 py-3
+        rounded-xl
+        bg-gray-100
+        border
+        border-gray-200
+        focus:outline-none
+        focus:ring-2
+        focus:ring-indigo-400
+        transition
+        placeholder-gray-600
+        "
+      />
+
+      <button
+
+        className="
+        w-full
+        py-3
+        rounded-xl
+        text-white
+        font-semibold
+        bg-gradient-to-r
+        from-indigo-500
+        to-purple-600
+        hover:opacity-90
+        transition
+        
+        "
+
+      >
+
+        {isLoggingIn ? "Loading..." : "Login"}
+
+      </button>
+
+    </form>
+
+    <p className="text-center text-gray-500 mt-4">
+
+      Don't have account ?
+
+      <Link
+        to="/signup"
+        className="text-indigo-600 font-semibold ml-1"
+      >
+        Signup
+      </Link>
+
+    </p>
+
+  </div>
+
+</div>
+
   );
+
 }

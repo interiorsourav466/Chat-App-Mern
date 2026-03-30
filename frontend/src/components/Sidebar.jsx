@@ -16,58 +16,68 @@ const Sidebar = () => {
 
   if (isUsersLoading) return <SidebarSkeleton />;
   return (
-    <aside className="h-full w-20 lg:w-72 border-r border-base-300 flex flex-col transition-all duration-200">
-      <div className="border-b border-base-300 w-full p-5">
-        <div className="flex items-center gap-2">
-          <Users className="size-6" />
+   <aside className="h-full w-20 lg:w-80 bg-white shadow-lg flex flex-col">
+
+  <div className="p-5 border-b">
+    <h2 className="text-lg font-semibold text-gray-700">
+      Chats
+    </h2>
+  </div>
+
+  <div className="overflow-y-auto">
+
+    {users.map((user) => (
+
+      <button
+        key={user._id}
+        onClick={() => setSelectedUser(user)}
+
+        className={`w-full flex items-center gap-3 p-3 hover:bg-indigo-50 transition
+
+        ${selectedUser?._id === user._id
+            ? "bg-indigo-100"
+            : ""
+        }`}
+      >
+
+        <div className="relative">
+
+          <img
+            src={
+              user.profilePic ||
+              "https://i.pravatar.cc/150"
+            }
+
+            className="w-12 h-12 rounded-full object-cover border"
+          />
+
+          {onlineUsers.includes(user._id) && (
+            <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-white" />
+          )}
+
         </div>
-        {/* TODO: Online filter toggle */}
-      </div>
 
-      <div className="overflow-y-auto w-full py-3">
-        {users.map((user) => (
-          <button
-            onClick={() => setSelectedUser(user)}
-            key={user._id}
-            className={`
-              w-full p-3 flex items-center gap-3
-              hover:bg-base-300 transition-colors
-              ${
-                selectedUser?._id === user._id
-                  ? "bg-base-300 ring-1 ring-base-300"
-                  : ""
-              }
-            `}
-          >
-            <div className="relative mx-auto lg:mx-0">
-              <img
-                src={
-                  user.profilePic ||
-                  "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                }
-                alt={user.name}
-                className="size-12 object-cover rounded-full"
-              />
+        <div className="hidden lg:block text-left">
 
-              {onlineUsers.includes(user._id) && (
-                <span
-                  className="absolute bottom-0 right-0 size-3 bg-green-500 
-                  rounded-full ring-2 ring-zinc-900"
-                />
-              )}
-            </div>
+          <p className="font-medium text-gray-800">
+            {user.name}
+          </p>
 
-            {/* User info - only visible on larger screens */}
-            <div className="hidden lg:block text-left min-w-0">
-              <div className="font-medium truncate">{user.name}</div>
-              <div className="text-sm text-zinc-400">
-                {onlineUsers.includes(user._id) ? "Online" : "Offline"}
-              </div>
-            </div>
-          </button>
-        ))}
-      </div>
-    </aside>
+          <p className="text-sm text-gray-400">
+            {onlineUsers.includes(user._id)
+              ? "online"
+              : "offline"}
+          </p>
+
+        </div>
+
+      </button>
+
+    ))}
+
+  </div>
+
+</aside>
   );
 };
 export default Sidebar;

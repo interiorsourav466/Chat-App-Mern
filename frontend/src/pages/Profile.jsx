@@ -27,72 +27,84 @@ const Profile = () => {
     await updateProfile({ profilePic: selectedImage });
   };
   return (
-    <div className="flex items-center justify-center mt-12">
-      <div className="bg-white shadow-lg p-8 rounded-xl w-[400px]">
-        {/* Profile Image Upload */}
-        <div className="relative w-32 h-32 mx-auto">
-          <img
-            src={
-              imagePreview ||
-              authUser?.profilePic ||
-              "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-            }
-            alt="profile picture"
-            className="w-32 h-32 rounded-full object-cover border"
-          />
-          <label
-            htmlFor="profile-upload"
-            className="absolute bottom-1 right-1 bg-black/70 text-white p-2 rounded-full cursor-pointer hover:bg-black transition"
-          >
-            <Camera size={18} />
-          </label>
+   <div className="min-h-screen flex justify-center items-center bg-gradient-to-br from-indigo-100 via-white to-purple-100">
 
-          <input
-            id="profile-upload"
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="hidden"
-          />
-        </div>
-        <p className="text-gray-600 text-center mt-2">
-          Click the camera icon to change profile pic
-        </p>
+  <div className="bg-white shadow-2xl rounded-2xl p-8 w-[400px]">
 
-        {/* User Info */}
-        <div className="mt-6">
-          <label htmlFor="" className="block text-gray-600 text-sm mb-1">
-            Name
-          </label>
-          <input
-            type="text"
-            value={authUser.name}
-            readOnly
-            className="w-full p-3 text-gray-600 border rounded-lg bg-gray-100 cursor-not-allowed"
-          />
+    <h2 className="text-2xl font-bold text-center text-indigo-600">
+      Profile
+    </h2>
 
-          <label className="block text-gray-600 text-sm mt-4 mb-1">Email</label>
-          <input
-            type="text"
-            value={authUser?.email}
-            readOnly
-            className="w-full p-3 text-gray-600 border rounded-lg bg-gray-100 cursor-not-allowed"
-          />
-        </div>
-        <p className="mt-4 text-sm text-gray-600">
-          Member since: {authUser?.createdAt}
-        </p>
+    <div className="flex justify-center mt-6">
 
-        {/* UPDATE BUTTON */}
-        <button
-          onClick={handleSubmit}
-          disabled={isUpdatingProfile}
-          className="mt-5 w-full bg-black text-white py-2 rounded-lg hover:bg-gray-900 transition"
+      <div className="relative">
+
+        <img
+          src={
+            imagePreview ||
+            authUser?.profilePic ||
+            "https://i.pravatar.cc/200"
+          }
+
+          className="w-32 h-32 rounded-full object-cover border-4 border-indigo-200"
+        />
+
+        <label
+          htmlFor="profile-upload"
+
+          className="absolute bottom-0 right-0 bg-indigo-600 p-2 rounded-full text-white cursor-pointer"
         >
-          {isUpdatingProfile ? "Updating..." : "Update"}
-        </button>
+
+          <Camera size={18}/>
+
+        </label>
+
       </div>
+
     </div>
+
+    <input
+      id="profile-upload"
+      type="file"
+      hidden
+      onChange={handleImageChange}
+    />
+
+    <div className="mt-6 space-y-3">
+
+      <input
+        value={authUser.name}
+        readOnly
+        className="w-full p-3 border rounded-lg bg-gray-100"
+      />
+
+      <input
+        value={authUser.email}
+        readOnly
+        className="w-full p-3 border rounded-lg bg-gray-100"
+      />
+
+    </div>
+
+    <button
+      onClick={handleSubmit}
+
+      className="w-full mt-6 bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700"
+    >
+
+      {
+
+        isUpdatingProfile
+          ? "Updating..."
+          : "Update Profile"
+
+      }
+
+    </button>
+
+  </div>
+
+</div>
   );
 };
 export default Profile;

@@ -1,48 +1,47 @@
 import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
+
 const Navbar = () => {
   const { logout, authUser } = useAuthStore();
-  return (
-    <div className="navbar bg-base-100 shadow-sm">
-      <div className="flex-1">
-        <Link to="/" className="btn btn-ghost text-xl">
-          Chatify
-        </Link>
-      </div>
-      <div className="flex-none">
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src={
-                  authUser?.profilePic ||
-                  "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                }
-              />
-            </div>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <Link to="/profile" className="justify-between">
-                Profile
-              </Link>
-            </li>
 
-            <li>
-              <p onClick={logout}>Logout</p>
-            </li>
-          </ul>
+  return (
+    <div className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+
+        <Link to="/" className="text-2xl font-bold tracking-wide">
+          SouravChat 💬
+        </Link>
+
+        <div className="flex items-center gap-3">
+
+          <Link
+            to="/profile"
+            className="flex items-center gap-2 bg-white/20 px-3 py-1 rounded-full hover:bg-white/30 transition"
+          >
+            <img
+              src={
+                authUser?.profilePic ||
+                "https://i.pravatar.cc/40"
+              }
+              className="w-8 h-8 rounded-full"
+            />
+
+            <span className="hidden sm:block">
+              {authUser?.name}
+            </span>
+          </Link>
+
+          <button
+            onClick={logout}
+            className="bg-white/20 px-3 py-1 rounded-full hover:bg-red-500 transition"
+          >
+            Logout
+          </button>
+
         </div>
       </div>
     </div>
   );
 };
+
 export default Navbar;
